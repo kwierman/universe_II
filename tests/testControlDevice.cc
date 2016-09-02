@@ -16,10 +16,9 @@ int main(){
     std::cout<<"\t WriteControlRegister: "<<mydevice.WriteControlRegister()<<std::endl;
     std::cout<<"\t Enable: "<<mydevice.Enable()<<std::endl;
 
-    std::cout<<"\t SetHWByteSwap: "<<mydevice.SetHWByteSwap()<<std::endl;
-    std::cout<<"\t SetDSNegationSpeed: "<<mydevice.SetDSNegationSpeed()<<std::endl;
-    std::cout<<"\t SetDSHighTimeBLTs: "<<mydevice.SetDSHighTimeBLTs()<<std::endl;
-    std::cout<<"\t SetDSHighTimeBLTs: "<<mydevice.SetDSHighTimeBLTs()<<std::endl;
+    mydevice.SetHWByteSwap()
+    mydevice.SetDSNegationSpeed()<<std::endl;
+    mydevice.SetDSHighTimeBLTs()
     std::cout<<"\t GetPCIMemorySize: "<<mydevice.GetPCIMemorySize()<<std::endl;
     std::cout<<"\t GetBoardType: "<<mydevice.GetBoardType()<<std::endl;
 
