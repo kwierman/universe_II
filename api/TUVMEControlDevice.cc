@@ -16,11 +16,7 @@ TUVMEControlDevice::~TUVMEControlDevice()
 
 int TUVMEControlDevice::Open()
 {
-    if (fDevNumber >= (int32_t)kNumberOfDevices) {
-      std::cout<<"Cannot Open VMEDEVICE"<<std::endl;
-      return -1; //Error
-    }
-    if ((fFileNum = open("/dev/vmeex/ctl", O_RDWR)) < 0) {
+    if ((fFileNum = vme_openDevice( "ctl" )) < 0) {
       fIsOpen = false;
       return fFileNum; // Error
     }
