@@ -16,7 +16,7 @@ TUVMEControlDevice::~TUVMEControlDevice()
 
 int TUVMEControlDevice::Open()
 {
-    if ((fFileNum = vme_openDevice( "ctl" )) < 0) {
+    if ((fFileNum = open("/dev/vmeex/ctl", O_RDWR)) < 0) {
       fIsOpen = false;
       return fFileNum; // Error
     }
