@@ -40,7 +40,7 @@ else
 CFLAGS  = -Wall -m64 -DOS64BIT -I $(INCLUDE)
 endif
 
-all: testDevice
+all: testDevice testControlDevice
 
 testDevice: testDevice.cc
 	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
