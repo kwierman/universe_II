@@ -5,7 +5,7 @@
 
 int main(){
 
-    TUVMEDMADevice mydevice(0);
+    TUVMEDMADevice mydevice(uint32_t(0));
     mydevice.Open();
 
 }
