@@ -78,4 +78,30 @@ enum universe_motherboard_type {
 #define U2SPEC                 0x04FC
 
 
+/************************************/
+/*   DMA Target CTL bits            */
+/************************************/
+#define DMA_VDW_8BIT      (VDW_8BIT << 22)
+#define DMA_VDW_16BIT     (VDW_16BIT << 22)
+#define DMA_VDW_32BIT     (VDW_32BIT << 22)
+#define DMA_VDW_64BIT     (VDW_64BIT << 22)
+
+#define DMA_VAS_A16       (VAS_A16 << 16)
+#define DMA_VAS_A24       (VAS_A24 << 16)
+#define DMA_VAS_A32       (VAS_A32 << 16)
+#define DMA_VAS_CRCSR     (VAS_CRCSR << 16)
+#define DMA_VAS_USER1     (VAS_USER1 << 16)
+#define DMA_VAS_USER2     (VAS_USER2 << 16)
+
+#define DMA_PGM_DATA      (PGM_DATA << 14)
+#define DMA_PGM_PROG      (PGM_PROG << 14)
+
+#define DMA_SUPER_NONP    (SUPER_NONP << 12)
+#define DMA_SUPER_SUP     (SUPER_SUP << 12)
+
+#define DMA_NO_INCREMENT  0x200
+
+#define DMA_VCT_USE_BLT   (VCT_USE_BLT << 8)
+#define DMA_VCT_NO_BLT    (VCT_NO_BLT << 8)
+
 #endif
