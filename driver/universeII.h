@@ -33,5 +33,10 @@ enum universeII_ioctl
 #define	VME_EINVAL		22	/* Invalid argument */
 #define	VME_ETIME		62	/* Timer expired */
 
+enum universe_motherboard_type {
+	UNIVERSE_BOARD_TYPE_UNKNOWN = 0,
+	UNIVERSE_BOARD_TYPE_CCT,
+	UNIVERSE_BOARD_TYPE_VMIC
+};
 
 #endif
