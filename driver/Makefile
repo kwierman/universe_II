@@ -29,11 +29,11 @@ USE_KBUILD := TRUE
 endif
 
 
-TARGET := universeII
+TARGET := universeIIdrv
 
 ifeq ($(USE_KBUILD),FALSE)
 OBJS := $(TARGET).o
-SRC := universeII.c
+SRC := universe_II.c
 endif
 
 CC 	= gcc
@@ -69,7 +69,7 @@ clean:
 	rm -f $(KERNEL)/*.o
 else
 
-VME_GLUE_OBJS := universeII.o
+VME_GLUE_OBJS := universe_II.o
 
 ifneq ($(KERNELRELEASE),)
 obj-m	:= $(TARGET).o
