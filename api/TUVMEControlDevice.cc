@@ -20,7 +20,7 @@ int TUVMEControlDevice::Open()
       std::cout<<"Cannot Open VMEDEVICE"<<std::endl;
       return -1; //Error
     }
-    if ((fFileNum = open('/dev/vmeex/ctl', O_RDWR)) < 0) {
+    if ((fFileNum = open("/dev/vmeex/ctl", O_RDWR)) < 0) {
       fIsOpen = false;
       return fFileNum; // Error
     }
