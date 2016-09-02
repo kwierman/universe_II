@@ -70,7 +70,7 @@ class TUVMEDevice {
 
     inline volatile void* GetMappedAddress() {return fMappedAddress;}
 
-    virtual std::string GetDeviceStringName() {return "vme_m";}
+    virtual std::string GetDeviceStringName() {return "vme/m";}
     int32_t CheckBusError();
 
     int32_t Open();
