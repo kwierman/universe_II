@@ -28,12 +28,11 @@ else
 USE_KBUILD := TRUE
 endif
 
-
-TARGET := universeIIdrv
+TARGET := universeII
 
 ifeq ($(USE_KBUILD),FALSE)
 OBJS := $(TARGET).o
-SRC := universeII_drv.c
+SRC := universeII.c
 endif
 
 CC 	= gcc
@@ -73,7 +72,7 @@ VME_GLUE_OBJS := universeII_drv.o
 
 ifneq ($(KERNELRELEASE),)
 obj-m	:= $(TARGET).o
-#$(TARGET)-objs :=  $(VME_GLUE_OBJS)
+$(TARGET)-objs :=  $(VME_GLUE_OBJS)
 else
 KDIR	:= $(KERNEL_SOURCES)
 PWD	:= $(shell pwd)
