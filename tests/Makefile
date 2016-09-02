@@ -31,7 +31,7 @@ else
 LIBEN	= -luniverse
 endif
 
-INCLUDE = ../api/
+INCLUDE = ../api/:../driver/
 RPATH:=$(shell cd $(LIBPATHSHARED); pwd)
 
 ifeq ($(OS64BIT),FALSE)
