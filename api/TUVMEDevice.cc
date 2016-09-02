@@ -4,6 +4,7 @@
 #include <sys/fcntl.h>
 #include <unistd.h>
 #include <cstring>
+#include <iostream>
 
 TUVMEDeviceLock TUVMEDevice::fSystemLock;
 
@@ -24,6 +25,7 @@ int32_t TUVMEDevice::Open()
 {
   std::ostringstream os;
   if (fDevNumber >= (int32_t)kNumberOfDevices) {
+    std::cout<<"Cannot Open VMEDEVICE"<<std::endl;
     return -1; //Error
   }
   os << "/dev/"<< GetDeviceStringName();

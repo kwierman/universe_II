@@ -3,6 +3,7 @@
 #include <sys/fcntl.h>
 #include <unistd.h>
 //#include "ConcurrentVX40x.h"
+#include <iostream>
 
 TUVMEControlDevice::TUVMEControlDevice(): TUVMEDevice((uint32_t)-1)
 {
@@ -16,11 +17,15 @@ TUVMEControlDevice::~TUVMEControlDevice()
 int TUVMEControlDevice::Open()
 {
   int status = TUVMEDevice::Open();
-  if (status < 0) return status;
+  if (status < 0){
+      std::cout<<"Cannot Open Control Device"<<std::endl;
+      return status;
+  }
   /* Get the Revision id. */
   status = Read((char*)&fRevisionID, sizeof(uint32_t), PCI_CLASS);
   if (status < 0) {
     fRevisionID = 0;
+    std::cout<<"Cannot Read Revision ID"<<std::endl;
     return status;
   }
   fRevisionID &= 0xf;
