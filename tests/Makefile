@@ -40,7 +40,7 @@ else
 CFLAGS  = -Wall -m64 -DOS64BIT -I $(INCLUDE)
 endif
 
-all: testDevice testControlDevice
+all: testDevice testControlDevice testDeviceManager
 
 testDevice: testDevice.cc
 	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
@@ -48,8 +48,11 @@ testDevice: testDevice.cc
 testControlDevice: testControlDevice.cc
 	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
 
+testDeviceManager: testDeviceManager.cc
+	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
+
 # example10: example10.c
 #	$(CC) $(CFLAGS) $^ -o $@ -L $(LIBPATH) $(LIBEN)
 
 clean:
-	rm -f testDevice testControlDevice
+	rm -f testDevice testControlDevice testDeviceManager
