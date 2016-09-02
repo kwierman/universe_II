@@ -1,0 +1,26 @@
+#!/bin/sh
+###############################################################################
+#
+# Filename: 	uns
+# 
+# Description:Shell script to unload the Linux VME Kernel API demo device driver
+#
+# Copyright 2000-2009 Concurrent Technologies.
+#
+###############################################################################
+
+module="exampledrv"
+device="vmeex"
+
+printf "Unloading %s module...\n" $module
+/sbin/rmmod $module || exit 1
+
+if [ -d /dev/$device ]
+then
+    printf "Removing device files...\n"
+    rm -f /dev/$device/ctl
+    rmdir /dev/$device
+fi
+
+printf "Removed %s module\n" $module
+
