@@ -33,7 +33,7 @@ TARGET := universeIIdrv
 
 ifeq ($(USE_KBUILD),FALSE)
 OBJS := $(TARGET).o
-SRC := universeII_drv.c 
+SRC := universeII_drv.c
 endif
 
 CC 	= gcc
@@ -69,11 +69,11 @@ clean:
 	rm -f $(KERNEL)/*.o
 else
 
-VME_GLUE_OBJS := universeII_drv.o 
+VME_GLUE_OBJS := universeII_drv.o
 
 ifneq ($(KERNELRELEASE),)
 obj-m	:= $(TARGET).o
-$(TARGET)-objs :=  $(VME_GLUE_OBJS)
+#$(TARGET)-objs :=  $(VME_GLUE_OBJS)
 else
 KDIR	:= $(KERNEL_SOURCES)
 PWD	:= $(shell pwd)
