@@ -1,6 +1,8 @@
-include ../config.mk
+INSTALLGRP = root
+INSTALLUSR = root
+INSTALL = $(shell which install)
 
-SOURCES = $(wildcard *.cc) 
+SOURCES = $(wildcard *.cc)
 OBJECTS = $(SOURCES:.cc=.o)
 HEADERS = $(wildcard *.hh)
 INSTALLDIR = /usr/local/universe
@@ -26,7 +28,7 @@ $(LIB): $(OBJECTS)
 install: $(LIB)
 	@echo "Beginning installation..."
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -d $(INSTALLDIR) || exit $$?
-	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -d $(INSTALLDIR)/include || exit $$? 
+	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -d $(INSTALLDIR)/include || exit $$?
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -d $(INSTALLDIR)/lib || exit $$?
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 $(LIB) $(INSTALLDIR)/lib || exit $$?
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 universe_api.h $(INSTALLDIR)/include || exit $$?
@@ -34,7 +36,7 @@ install: $(LIB)
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 ../driver/ConcurrentVX40x.h $(INSTALLDIR)/include || exit $$?
 	@for i in $(HEADERS); do ($(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 $$i $(INSTALLDIR)/include) || exit $$?; done
 	@echo "Installation complete."
- 
+
 uninstall:
 	@rm -f $(INSTALLDIR)/include/universe_api.h $(INSTALLDIR)/include/universe.h $(INSTALLDIR)/lib/$(LIB)
 	@rm -f $(INSTALLDIR)/include/ConcurrentVX40x.h
