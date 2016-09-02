@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Filename: 	vme_api_en.h
-* 
+*
 * Description:	Header file for VME enhanced application programmers interface
 *
 * $Revision: 1.15 $
@@ -325,7 +325,7 @@ extern "C"
 /* Board Capabality flags */
 #define EN_VME_BYTE_SWAP	0x00000008
 #define EN_VME_SCT		0x00000010
-#define EN_VME_BLT		0x00000020	
+#define EN_VME_BLT		0x00000020
 #define EN_VME_MBLT		0x00000040
 #define EN_VME_2eVME		0x00000080
 #define EN_VME_2eSST160		0x00000100
@@ -401,7 +401,7 @@ enum ioctl_en_nums
 enum en_int_nums
 {
   EN_RESERVED1_VOWN =0,  /* RESERVED1(Tsi148) or VOWN(UniverseII) */
-  EN_IRQ1,               
+  EN_IRQ1,
   EN_IRQ2,
   EN_IRQ3,
   EN_IRQ4,
@@ -411,7 +411,7 @@ enum en_int_nums
   EN_ACFAIL,
   EN_SYSFAIL,
   EN_IACK,
-  EN_VIE_SWINT,         /* VIE(Tsi148) or SWINT(UniverseII) */ 
+  EN_VIE_SWINT,         /* VIE(Tsi148) or SWINT(UniverseII) */
   EN_VERR,
   EN_PERR,
   EN_RESERVED2,
@@ -425,7 +425,7 @@ enum en_int_nums
   EN_LM2,
   EN_LM3,
   EN_DMA0,
-  EN_DMA1,             /* Supported only on Tsi148 */ 
+  EN_DMA1,             /* Supported only on Tsi148 */
 };
 
 /* Status information codes */
@@ -468,7 +468,7 @@ enum tsi148VmeCycles {
 	TSI148_2eVME,
 	TSI148_2eSST,
 	TSI148_2eSSTB
-};	
+};
 
 enum tsi148DmaBlkSize {
 	TSI148_32=0,
@@ -503,7 +503,7 @@ typedef int             INT32;
 
 /*Image numbers for the kernel APIs*/
 #ifdef __KERNEL__
-#define VME_CONTROL       0       
+#define VME_CONTROL       0
 #define VME_LSI0          1
 #define VME_LSI1          2
 #define VME_LSI2          3
@@ -574,7 +574,7 @@ typedef struct
 typedef struct
 {
         UINT32 vmeAddress;              /* VME address, lowest address in range to monitor */
-	UINT32 vmeAddressUpper;		
+	UINT32 vmeAddressUpper;
         UINT32 type;                    /* type 1=data, 2=program 3=both */
         UINT32 mode;                    /* mode 1=non-privileged, 2=supervisor 3=both */
         UINT32 addrSpace;               /* address space 0=A16, 1=A24, 2=A32 3=Reserved
@@ -590,7 +590,7 @@ typedef struct
         UINT32 sizeUpper;               /* Upper 32bits of Image size*/
         UINT32 threshold;               /* Threshold for prefetch
 					   0=prefetch on FIFO full empty
-					   1=prefetch on FIFO half empty 
+					   1=prefetch on FIFO half empty
 					   (Applicable only to TSI148)	*/
         UINT32 virtualFifoSize;         /* FIFO Size 0=64, 1=128, 2=256, 3=512 (Applicable only to TSI148)*/
 	UINT32 postedWrites;            /* Posted writes 0=disable, 1=enable (Applicable only to Universe II)*/
@@ -600,7 +600,7 @@ typedef struct
 	UINT32 sstMode;                 /* 2eSST mode 0=SST160 ,1=SST267 ,2=SST320 (Applicable only to TSI148)*/
         UINT32 type;                    /* type 1=data, 2=program 3=both */
         UINT32 mode;                    /* mode 1=non-privileged, 2=supervisor 3=both */
-        UINT32 addrSpace;               /* address space 0=A16, 1=A24,  2=A32, 4=A64, 5=CRSCR ,6=User1, 7=User2                                                         (A64 is supported only in case of TSI148 and User1/2 are applicable 
+        UINT32 addrSpace;               /* address space 0=A16, 1=A24,  2=A32, 4=A64, 5=CRSCR ,6=User1, 7=User2                                                         (A64 is supported only in case of TSI148 and User1/2 are applicable
 					   only for Universe II */
 	UINT32 pciBusSpace;             /* Pci bus space 0=pci_mem, 1=pci_IO (Applicable only to Universe II)*/
         UINT32 pciBusLock;              /* Pci bus lock on VME read modify write 0=disable, 1=enable
@@ -620,14 +620,14 @@ typedef struct
         UINT32 readPrefetch;    	/* prefetched reads 0=disable, 1=enable(Applicable only to TSI148)*/
         UINT32 prefetchSize;    	/* cache lines 0= 2 ,1= 4 , 2= 8, 3= 16(Applicable only to TSI148)*/
 	UINT32 postedWrites;            /* Posted writes 0=disable, 1=enable (Applicable only to Universe II)*/
-        UINT32 dataWidth;               /* data width 0=8 bits, 1=16 bits, 2=32 bits, 3=64 bits 
+        UINT32 dataWidth;               /* data width 0=8 bits, 1=16 bits, 2=32 bits, 3=64 bits
 					   (8 and 64 bit supported on UniverseII only) */
-        UINT32 addrSpace;               /* address space 0=A16, 1=A24, 2=A32, 4=A64(tsi148), 5=CR/CSR(tsi148), 
-					   6=User1(unv), 7=User2(unv), 8=User1(tsi148), 9=User2(tsi148), 
+        UINT32 addrSpace;               /* address space 0=A16, 1=A24, 2=A32, 4=A64(tsi148), 5=CR/CSR(tsi148),
+					   6=User1(unv), 7=User2(unv), 8=User1(tsi148), 9=User2(tsi148),
 					  10=User3(tsi148), 11=User4(tsi148) */
         UINT32 type;                    /* type 0=data, 1=program */
         UINT32 mode;            	/* mode 0=non-privileged, 1=supervisor */
-        UINT32 vmeCycle;                /* VME bus cycle type 0=SCT , 1=BLT ,  2=MBLT ,                                                                                 3=2eVME , 4 = 2eSST 5=2eSSTB (Universe II supports 
+        UINT32 vmeCycle;                /* VME bus cycle type 0=SCT , 1=BLT ,  2=MBLT ,                                                                                 3=2eVME , 4 = 2eSST 5=2eSSTB (Universe II supports
 					   only 0=SCT and 1=BLT) */
 	UINT32 sstMode;                 /* 2eSST modes SST160, 1=SST267 , 2=SST320(Applicable only to TSI148)*/
         UINT32 vton;			/* Unused */
@@ -645,14 +645,14 @@ typedef struct
 
 } EN_DMA_ALLOC;
 
-typedef struct 
+typedef struct
 {
 	UINT32 vmeBlkSize;		/* VME Bus block size in bytes 0=32, 1=64, 2=128 , 3=256,
 						 4=512 , 5=1024 , 6=2048, 7=4096(Applicable only to TSI148)*/
 	UINT32 vmeBackOffTimer;		/* VMEBus Back off timer in uS 0=0, 1=1 , 2=2, 3=4 , 4=8 ,
 						 5=16 , 6=32 , 7=64(Applicable only to TSI148)*/
 	UINT32 pciBlkSize;		/* PCI Bus block size in bytes 0=32, 1=64, 2=128 , 3=256,
-						 4=512 , 5=1024 , 6=2048, 7=4096(Applicable only to TSI148)*/	
+						 4=512 , 5=1024 , 6=2048, 7=4096(Applicable only to TSI148)*/
 	UINT32 pciBackOffTimer;		/* PCI Bus Back off timer in uS 0=0, 1=1 , 2=2, 3=4 , 4=8 ,
 						 5=16 , 6=32 , 7=64(Applicable only to TSI148)*/
 	UINT32 vton;                    /* Unused */
@@ -671,16 +671,16 @@ typedef struct
 } EN_VME_USER_AM;			/* Applicable only to Universe II */
 
 
-typedef struct 
+typedef struct
 {
-	UINT32 dataWidth;	/* data width 0=8 bits, 1=16 bits, 2=32 bits, 3=64 bits (8 and 64 bit 
+	UINT32 dataWidth;	/* data width 0=8 bits, 1=16 bits, 2=32 bits, 3=64 bits (8 and 64 bit
 					on UniverseII only) */
-	UINT32 addrSpace;	/* address space 0=A16, 1=A24, 2=A32, 4=A64(tsi148), 5=CR/CSR, 
-				6=User1(unv), 7=User2(unv), 8=User1(tsi148), 9=User2(tsi148), 10=User3(tsi148), 
+	UINT32 addrSpace;	/* address space 0=A16, 1=A24, 2=A32, 4=A64(tsi148), 5=CR/CSR,
+				6=User1(unv), 7=User2(unv), 8=User1(tsi148), 9=User2(tsi148), 10=User3(tsi148),
 				11=User4(tsi148) */
 	UINT32 type;			/* type 0=data, 1=program */
 	UINT32 mode;		/* mode 0=non-privileged, 1=supervisor */
-	UINT32 vmeCycle;	/* VME bus cycle type 0=SCT , 1=BLT ,  2=MBLT , 3=2eVME 
+	UINT32 vmeCycle;	/* VME bus cycle type 0=SCT , 1=BLT ,  2=MBLT , 3=2eVME
 				   , 4 = 2eSST 5=2eSSTB.( Universe II supports only SCT and BLT)*/
 	UINT32 sstMode;         /* 2eSST Mode 0=SST160, 1=SST267 , 2=SST320(Applicable only to TSI148)*/
 	UINT32 sstbSel;         /* 2eSST Broadcast select ,Bit patter 0 -0x1FFFFF(Applicable only to TSI148)*/
@@ -688,7 +688,7 @@ typedef struct
 } EN_VME_ACCESS_PARAMS;
 
 
-typedef struct 
+typedef struct
 {
 	UINT32 direction;		/* 0=read (VME to PCI bus), 1=write (PCI to VME bus) */
 	UINT32 vmeAddress;			/* lower 32-bit of destination address*/
@@ -759,7 +759,7 @@ typedef struct
 
 typedef struct
 {
-	UINT32 devId;				/*VME Bridge device ID,Universe II 
+	UINT32 devId;				/*VME Bridge device ID,Universe II
 						  or TSI148*/
         UINT32 intCounter[26];			/*Interrupt counters*/
         UINT32 totalIntCount;			/*VME bridge interrupt count*/
@@ -773,7 +773,7 @@ typedef struct
         char brdName[30];			/*Board name*/
         UINT32 devId;				/*VME Bridge device ID,Universe II
                                                   or TSI148*/
-	UINT32 regBase;				/*Memory base address of VME bridge 
+	UINT32 regBase;				/*Memory base address of VME bridge
 						 registers*/
 } EN_CTL_STATUS_DATA;
 
@@ -784,8 +784,8 @@ typedef struct
 	UINT32 readCount;			/*vme_read count*/
 	UINT32 writeCount;			/*vme_write count*/
 	UINT32 errorCount;			/*vme_read/write error count*/
-	UINT32 devReg1;				/*Refer the driver manual for register definitions*/	
-	UINT32 devReg2;				   	
+	UINT32 devReg1;				/*Refer the driver manual for register definitions*/
+	UINT32 devReg2;
 	UINT32 devReg3;
 	UINT32 devReg4;
 	UINT32 devReg5;
@@ -976,6 +976,8 @@ int vmekrn_getSysFail( INT32 minorNum, UINT8* status );
 int vmekrn_setSysFail( INT32 minorNum );
 int vmekrn_clearSysFail( INT32 minorNum );
 #endif /* __KERNEL__ */
+
+
 
 #ifdef __cplusplus
 }

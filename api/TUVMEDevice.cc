@@ -20,12 +20,12 @@ TUVMEDevice::~TUVMEDevice()
   Close();
 }
 
-int32_t TUVMEDevice::Open()  
+int32_t TUVMEDevice::Open()
 {
   std::ostringstream os;
   if (fDevNumber >= (int32_t)kNumberOfDevices) {
     return -1; //Error
-  } 
+  }
   os << "/dev/"<< GetDeviceStringName();
   if (fDevNumber >= 0) {
     os << fDevNumber;
@@ -37,6 +37,15 @@ int32_t TUVMEDevice::Open()
   fIsOpen = true;
   return 0;
 }
+void TUVMEDevice::Close()
+{
+  if (fIsOpen) {
+    close(fFileNum);
+    fIsOpen = false;
+  }
+  if ( fMappedAddress ) munmap( (void*)fMappedAddress, fSizeOfImage );
+}
+
 
 int32_t TUVMEDevice::WriteControlRegister()
 {
@@ -62,7 +71,7 @@ int32_t TUVMEDevice::WriteControlRegister()
     default:
       return -1;
   }
- 
+
 
   switch (fAddressSpace) {
     case kA16:
@@ -87,7 +96,7 @@ int32_t TUVMEDevice::WriteControlRegister()
       return -1;
   }
 
- 
+
   switch (fMode) {
     case kProgram:
       ctlRegister |= PCI_PGM_PROG;
@@ -109,7 +118,7 @@ int32_t TUVMEDevice::WriteControlRegister()
     default:
       return -1;
   }
-  
+
   ctlRegister |= (fUseBLTs) ? PCI_VCT_USE_BLT : PCI_VCT_NO_BLT;
   if (fAllowPostedWrites) {
     ctlRegister |= PCI_POSTED_WRITE;
@@ -117,16 +126,16 @@ int32_t TUVMEDevice::WriteControlRegister()
   /* Now enable the channel. */
   ctlRegister |= 0x80000000;
 
-  if ( ioctl(fFileNum, UNIVERSE_IOCSET_CTL, ctlRegister) < 0 ) return -1;  
+  if ( ioctl(fFileNum, UNIVERSE_IOCSET_CTL, ctlRegister) < 0 ) return -1;
   return 0;
 
 }
 
-int32_t TUVMEDevice::SetWithAddressModifier(uint32_t addressModifier) 
+int32_t TUVMEDevice::SetWithAddressModifier(uint32_t addressModifier)
 {
   if ((addressModifier & 0xF) <= 0x7) return -1;
     /* We are not equipped to handle other types of AMs.*/
-  switch ((addressModifier & 0x30) >> 4) { 
+  switch ((addressModifier & 0x30) >> 4) {
       case 3:
           fAddressSpace = kA24;
           break;
@@ -140,11 +149,11 @@ int32_t TUVMEDevice::SetWithAddressModifier(uint32_t addressModifier)
       case 0:
           fAddressSpace = kA32;
           break;
-  } 
+  }
 
   SetType(((addressModifier & 0x4) >> 2) ? kSuper : kNonPrivileged);
-  SetUseBLTs(!(((addressModifier & 0x2) >> 1) ^ (addressModifier & 0x1))); 
-  SetMode((addressModifier & 0x1) ? kData : kProgram); 
+  SetUseBLTs(!(((addressModifier & 0x2) >> 1) ^ (addressModifier & 0x1)));
+  SetMode((addressModifier & 0x1) ? kData : kProgram);
   return 0;
 
 }
@@ -155,14 +164,14 @@ int32_t TUVMEDevice::Enable()
 
 
   /* Setting memory handling. */
-  if ( ioctl(fFileNum, UNIVERSE_IOCSET_IOREMAP, ((fUseIORemap) ? 1 : 0)) < 0 ) return -1;  
-  if ( ioctl(fFileNum, UNIVERSE_IOCSET_BS, fPCIOffset) < 0 ) return -1; 
-  if ( ioctl(fFileNum, UNIVERSE_IOCSET_BD, fSizeOfImage) < 0 ) return -1; 
-  if ( ioctl(fFileNum, UNIVERSE_IOCSET_VME, fVMEAddress) < 0 ) return -1; 
+  if ( ioctl(fFileNum, UNIVERSE_IOCSET_IOREMAP, ((fUseIORemap) ? 1 : 0)) < 0 ) return -1;
+  if ( ioctl(fFileNum, UNIVERSE_IOCSET_BS, fPCIOffset) < 0 ) return -1;
+  if ( ioctl(fFileNum, UNIVERSE_IOCSET_BD, fSizeOfImage) < 0 ) return -1;
+  if ( ioctl(fFileNum, UNIVERSE_IOCSET_VME, fVMEAddress) < 0 ) return -1;
   if ( !fUseIORemap ) {
     /* Attemp to memory map the space. */
     fMappedAddress = mmap(0, fSizeOfImage, PROT_READ | PROT_WRITE, MAP_SHARED, fFileNum, 0);
-    if ( fMappedAddress == MAP_FAILED ) { 
+    if ( fMappedAddress == MAP_FAILED ) {
       fMappedAddress = NULL;
       return -1;
     }
@@ -170,37 +179,30 @@ int32_t TUVMEDevice::Enable()
   return 0;
 }
 
-void TUVMEDevice::SetVMEAddress(uint32_t vmeAddress) 
+void TUVMEDevice::SetVMEAddress(uint32_t vmeAddress)
 {
-  fVMEAddress = vmeAddress; 
+  fVMEAddress = vmeAddress;
   if (fIsOpen) ioctl(fFileNum, UNIVERSE_IOCSET_VME, fVMEAddress);
 }
-void TUVMEDevice::Close() 
-{
-  if (fIsOpen) {
-    close(fFileNum);
-    fIsOpen = false;
-  }
-  if ( fMappedAddress ) munmap( (void*)fMappedAddress, fSizeOfImage ); 
-}
+
 
 int32_t TUVMEDevice::Read(char* buffer, uint32_t numBytes, uint32_t offset)
 {
-  if (!fIsOpen) return 0; 
+  if (!fIsOpen) return 0;
   int32_t checker = 0;
   /* The following lock is to prevent any other device from accessing the
      universe chip and to ensure that the checked bus error corresponds
      to the previous read.  */
   fSystemLock.Lock();
   if ( fMappedAddress ) {
-    memcpy(buffer, (char*)fMappedAddress + offset, numBytes); 
+    memcpy(buffer, (char*)fMappedAddress + offset, numBytes);
     checker = CheckBusError();
     fSystemLock.Unlock();
     if ( checker == 0 ) return numBytes;
     else return 0;
   } else {
     lseek(fFileNum, offset, SEEK_SET);
-    checker = read(fFileNum, buffer, numBytes); 
+    checker = read(fFileNum, buffer, numBytes);
     fSystemLock.Unlock();
     return checker;
   }
@@ -208,27 +210,27 @@ int32_t TUVMEDevice::Read(char* buffer, uint32_t numBytes, uint32_t offset)
 
 int32_t TUVMEDevice::Write(char* buffer, uint32_t numBytes, uint32_t offset)
 {
-  if (!fIsOpen) return 0; 
+  if (!fIsOpen) return 0;
   int32_t checker = 0;
   /* The following lock is to prevent any other device from accessing the
      universe chip and to ensure that the checked bus error corresponds
      to the previous read.  */
   fSystemLock.Lock();
   if ( fMappedAddress ) {
-    memcpy((char*)fMappedAddress + offset, buffer, numBytes); 
+    memcpy((char*)fMappedAddress + offset, buffer, numBytes);
     checker = CheckBusError();
     fSystemLock.Unlock();
     if ( checker == 0 ) return numBytes;
     else return 0;
   } else {
     lseek(fFileNum, offset, SEEK_SET);
-    checker = write(fFileNum, buffer, numBytes); 
+    checker = write(fFileNum, buffer, numBytes);
     fSystemLock.Unlock();
     return checker;
   }
 }
 
-int32_t TUVMEDevice::CheckBusError() 
+int32_t TUVMEDevice::CheckBusError()
 {
-  return ioctl( fFileNum, UNIVERSE_IOCCHECK_BUS_ERROR ); 
+  return ioctl( fFileNum, UNIVERSE_IOCCHECK_BUS_ERROR );
 }
