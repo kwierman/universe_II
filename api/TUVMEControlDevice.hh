@@ -4,7 +4,7 @@
 #ifdef __cplusplus
 #include "TUVMEDevice.hh"
 #include <string>
-#include "universe.h"
+#include "universeII.h"
 
 
 class TUVMEControlDevice: public TUVMEDevice {
@@ -19,10 +19,10 @@ class TUVMEControlDevice: public TUVMEDevice {
 
     enum EBoardType { kUnknown = UNIVERSE_BOARD_TYPE_UNKNOWN,
 	              kCCT     = UNIVERSE_BOARD_TYPE_CCT,
-                      kVMIC    = UNIVERSE_BOARD_TYPE_VMIC }; 
-    
-    virtual std::string GetDeviceStringName() {return "vme_ctl";}    
-    virtual int Enable() {return 0;} 
+                      kVMIC    = UNIVERSE_BOARD_TYPE_VMIC };
+
+    virtual std::string GetDeviceStringName() {return "vme_ctl";}
+    virtual int Enable() {return 0;}
     virtual int Open();
 
     int ReadIOPortMemory( uint16_t address );
@@ -34,7 +34,7 @@ class TUVMEControlDevice: public TUVMEDevice {
     EBoardType GetBoardType();
 
   protected:
-    
+
     uint32_t fRevisionID;
 };
 

@@ -4,7 +4,7 @@
 #include <stdint.h>
 #ifdef __cplusplus
 #include <string>
-#include "universe.h"
+#include "universeII.h"
 #include <sys/mman.h>
 #include "TUVMEDeviceLock.hh"
 
@@ -22,9 +22,9 @@ class TUVMEDevice {
 
     enum ETUVMEDeviceAddressSpace { kA16 = 0,
                                     kA24 = 1,
-                                    kA32 = 2, 
-                                    kCRCSR = 3, 
-                                    kUser1 = 4, 
+                                    kA32 = 2,
+                                    kCRCSR = 3,
+                                    kUser1 = 4,
                                     kUser2 = 5};
 
     enum ETUVMEDeviceDataWidth { kD8 = 1,
@@ -37,31 +37,31 @@ class TUVMEDevice {
     enum ETUVMEDeviceType { kNonPrivileged = 0, kSuper };
 
     inline void SetPCIOffset(uint32_t offset) {fPCIOffset = offset;}
-    void SetVMEAddress(uint32_t vmeAddress); 
+    void SetVMEAddress(uint32_t vmeAddress);
 
-    inline void SetSizeOfImage(uint32_t sizeOfImage) 
+    inline void SetSizeOfImage(uint32_t sizeOfImage)
       {fSizeOfImage = sizeOfImage; WriteControlRegister();}
 
     int32_t SetWithAddressModifier(uint32_t addressModifier);
-    inline void SetAddressSpace(ETUVMEDeviceAddressSpace addressSpace) 
+    inline void SetAddressSpace(ETUVMEDeviceAddressSpace addressSpace)
       {fAddressSpace = addressSpace; WriteControlRegister(); }
 
-    inline void SetDataWidth(ETUVMEDeviceDataWidth dataWidth) 
+    inline void SetDataWidth(ETUVMEDeviceDataWidth dataWidth)
       {fDataWidth = dataWidth; WriteControlRegister();}
 
-    inline void SetMode(ETUVMEDeviceMode mode) 
+    inline void SetMode(ETUVMEDeviceMode mode)
       {fMode = mode; WriteControlRegister();}
 
-    inline void SetType(ETUVMEDeviceType type) 
+    inline void SetType(ETUVMEDeviceType type)
       {fType = type; WriteControlRegister();}
 
-    inline void SetUseBLTs(bool useBLTs) 
+    inline void SetUseBLTs(bool useBLTs)
       {fUseBLTs = useBLTs; WriteControlRegister();}
 
-    inline void SetAllowPostedWrites(bool allowPostedWrites) 
+    inline void SetAllowPostedWrites(bool allowPostedWrites)
       {fAllowPostedWrites = allowPostedWrites; WriteControlRegister();}
 
-    inline void SetUseIORemap(bool useIORemap) 
+    inline void SetUseIORemap(bool useIORemap)
       {fUseIORemap = useIORemap;}
 
     inline int32_t GetDevNumber() {return fDevNumber;}
@@ -70,7 +70,7 @@ class TUVMEDevice {
 
     inline volatile void* GetMappedAddress() {return fMappedAddress;}
 
-    virtual std::string GetDeviceStringName() {return "vme_m";}    
+    virtual std::string GetDeviceStringName() {return "vme_m";}
     int32_t CheckBusError();
 
     int32_t Open();
@@ -78,7 +78,7 @@ class TUVMEDevice {
     virtual int32_t WriteControlRegister();
 
     /* Enable device */
-    virtual int32_t Enable(); 
+    virtual int32_t Enable();
     void Close();
 
     /* Locking functions for thread safety. */
@@ -99,7 +99,7 @@ class TUVMEDevice {
     bool fUseBLTs;
     bool fAllowPostedWrites;
     bool fUseIORemap;
-   
+
     int32_t fFileNum;
     bool fIsOpen;
     int32_t fDevNumber;
@@ -107,9 +107,9 @@ class TUVMEDevice {
     volatile void* fMappedAddress;
 
     TUVMEDeviceLock fLock; // lock for this particular slave window
-    static TUVMEDeviceLock fSystemLock; // lock shared between all devices. 
-     
-    inline void Reset() 
+    static TUVMEDeviceLock fSystemLock; // lock shared between all devices.
+
+    inline void Reset()
       {fPCIOffset=0; fVMEAddress=0; fSizeOfImage=0; fAddressSpace=kA16; fDataWidth=kD8;
        fMode=kData; fType=kNonPrivileged; fUseBLTs=false; fAllowPostedWrites=false;
        fUseIORemap=false; fMappedAddress=NULL;}

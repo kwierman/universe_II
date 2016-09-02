@@ -2,7 +2,7 @@
 #include <sys/ioctl.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
-#include "ConcurrentVX40x.h"
+//#include "ConcurrentVX40x.h"
 
 TUVMEControlDevice::TUVMEControlDevice(): TUVMEDevice((uint32_t)-1)
 {
@@ -29,7 +29,7 @@ int TUVMEControlDevice::Open()
 
 void TUVMEControlDevice::SetHWByteSwap(bool doByteSwap)
 {
-  /* Currently, we only support the Concurrent board 
+  /* Currently, we only support the Concurrent board
    * and VMIC-based boards with this funcionality.   */
   EBoardType type = GetBoardType();
   uint8_t value = 0;
@@ -38,7 +38,7 @@ void TUVMEControlDevice::SetHWByteSwap(bool doByteSwap)
     case kCCT:
       value = ReadIOPortMemory( CONCURRENT_VX_CSR0 );
       /* First make sure the bits are cleared. */
-      value &= ~ ( CONCURRENT_HW_BYTE_SWAP_MASTER | 
+      value &= ~ ( CONCURRENT_HW_BYTE_SWAP_MASTER |
                    CONCURRENT_HW_BYTE_SWAP_SLAVE  |
                    CONCURRENT_HW_BYTE_SWAP_FAST );
       /* Now set them. */
@@ -46,9 +46,9 @@ void TUVMEControlDevice::SetHWByteSwap(bool doByteSwap)
       WriteIOPortMemory( CONCURRENT_VX_CSR0, value );
       break;
     case kVMIC:
-      if ( ioctl(fFileNum, UNIVERSE_IOCREAD_VME_COMM, &temp) < 0 ) return; 
+      if ( ioctl(fFileNum, UNIVERSE_IOCREAD_VME_COMM, &temp) < 0 ) return;
 
-      // We disable the big endianness and the bypass.  
+      // We disable the big endianness and the bypass.
       temp &= ~UNIVERSE_VMIC_ENABLE_ENDIAN_CONV_BYPASS;
       temp |= UNIVERSE_VMIC_ENABLE_MASTER_BIG_ENDIAN;
       temp |= UNIVERSE_VMIC_ENABLE_SLAVE_BIG_ENDIAN;
@@ -68,10 +68,10 @@ size_t TUVMEControlDevice::GetPCIMemorySize()
   return argument;
 }
 
-void TUVMEControlDevice::SetDSNegationSpeed(ECycleSpeeds speed) 
+void TUVMEControlDevice::SetDSNegationSpeed(ECycleSpeeds speed)
 {
   if (!fIsOpen) return;
-  /* The revision has to be 01 or 02. */ 
+  /* The revision has to be 01 or 02. */
   if (fRevisionID != 1 || fRevisionID != 2) return;
   uint32_t scratch = 0;
   if (Read((char*)&scratch, sizeof(uint32_t), U2SPEC) < 0) return;
@@ -80,21 +80,21 @@ void TUVMEControlDevice::SetDSNegationSpeed(ECycleSpeeds speed)
     case kNormal:
       break;
     case kFaster:
-      scratch |= 0x00000100; 
+      scratch |= 0x00000100;
       break;
     case kFastest:
       scratch |= 0x00000200;
       break;
-    default: 
+    default:
       break;
   }
   Write((char*)scratch, sizeof(uint32_t), U2SPEC);
 }
 
-void TUVMEControlDevice::SetDSHighTimeBLTs(ECycleSpeeds speed) 
+void TUVMEControlDevice::SetDSHighTimeBLTs(ECycleSpeeds speed)
 {
   if (!fIsOpen) return;
-  /* The revision has to be 01 or 02. */ 
+  /* The revision has to be 01 or 02. */
   if (fRevisionID != 1 || fRevisionID != 2) return;
   uint32_t scratch = 0;
   if (Read((char*)&scratch, sizeof(uint32_t), U2SPEC) < 0) return;
@@ -108,7 +108,7 @@ void TUVMEControlDevice::SetDSHighTimeBLTs(ECycleSpeeds speed)
     case kFastest:
       scratch |= 0x00000400;
       break;
-    default: 
+    default:
       break;
   }
   Write((char*)scratch, sizeof(uint32_t), U2SPEC);
@@ -120,7 +120,7 @@ TUVMEControlDevice::EBoardType TUVMEControlDevice::GetBoardType()
   size_t argument = 0;
   if (ioctl(fFileNum, UNIVERSE_IOCGET_BOARD_TYPE, &argument) < 0) return kUnknown;
   return (EBoardType)argument;
- 
+
 }
 
 int TUVMEControlDevice::ReadIOPortMemory(uint16_t address)

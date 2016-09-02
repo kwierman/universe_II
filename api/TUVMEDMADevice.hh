@@ -4,7 +4,7 @@
 #ifdef __cplusplus
 #include "TUVMEDevice.hh"
 #include <string>
-#include "universe.h"
+#include "universeII.h"
 
 
 class TUVMEDMADevice: public TUVMEDevice {
@@ -13,7 +13,7 @@ class TUVMEDMADevice: public TUVMEDevice {
     TUVMEDMADevice();
     virtual ~TUVMEDMADevice();
 
-    virtual std::string GetDeviceStringName() {return "vme_dma";}    
+    virtual std::string GetDeviceStringName() {return "vme_dma";}
     virtual int Enable();
 
     void SetNoIncrement(bool noInc = true) {fUseNoIncrement = noInc;}
