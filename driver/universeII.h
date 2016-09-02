@@ -39,6 +39,5 @@ enum universe_motherboard_type {
 	UNIVERSE_BOARD_TYPE_VMIC
 };
 
-#define PCI_CSR                0x0004
 
 #endif
