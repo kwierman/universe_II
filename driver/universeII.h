@@ -1,5 +1,5 @@
 #ifndef universeII_H_
-#define universeII_h_ 1
+#define universeII_H_ 1
 
 enum universeII_ioctl
 {
