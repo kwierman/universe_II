@@ -5,7 +5,7 @@
 #include "TUVMEDevice.hh"
 #include <string>
 #include "universeII.h"
-
+#include "vme_api_en.h"
 
 class TUVMEControlDevice: public TUVMEDevice {
 
