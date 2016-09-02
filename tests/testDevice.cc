@@ -14,6 +14,9 @@ int main(){
         std::cout<<"\tDevice Number: "<<mydevice.GetDevNumber()<<std::endl;
         std::cout<<"\tVMEAddress: "<<mydevice.GetVMEAddress()<<std::endl;
         std::cout<<"\tSizeOfImage: "<<mydevice.GetSizeOfImage()<<std::endl;
+        std::cout<<"\t Bus Error: "<<mydevice.CheckBusError()<<std::endl;
+        std::cout<<"\t WriteControlRegister: "<<mydevice.WriteControlRegister()<<std::endl;
+        std::cout<<"\t Enable: "<<mydevice.Enable()<<std::endl;
 
         std::cout<<std::endl;
     }
