@@ -125,4 +125,31 @@ enum universe_motherboard_type {
 #define VCT_USE_BLT 0x1
 #define VCT_NO_BLT  0x0
 
+/************************************/
+/*   PCI Target CTL bits            */
+/************************************/
+#define PCI_ENABLE        0x80000000
+#define PCI_POSTED_WRITE  0x40000000
+#define PCI_VDW_8BIT      (VDW_8BIT  << 22)
+#define PCI_VDW_16BIT     (VDW_16BIT << 22)
+#define PCI_VDW_32BIT     (VDW_32BIT << 22)
+#define PCI_VDW_64BIT     (VDW_64BIT << 22)
+
+#define PCI_VAS_A16       (VAS_A16   << 16)
+#define PCI_VAS_A24       (VAS_A24   << 16)
+#define PCI_VAS_A32       (VAS_A32   << 16)
+#define PCI_VAS_CRCSR     (VAS_CRCSR << 16)
+#define PCI_VAS_USER1     (VAS_USER1 << 16)
+#define PCI_VAS_USER2     (VAS_USER2 << 16)
+
+#define PCI_PGM_DATA      (PGM_DATA  << 14)
+#define PCI_PGM_PROG      (PGM_PROG  << 14)
+
+#define PCI_SUPER_NONP    (SUPER_NONP << 12)
+#define PCI_SUPER_SUP     (SUPER_SUP << 12)
+
+#define PCI_VCT_USE_BLT   (VCT_USE_BLT << 8)
+#define PCI_VCT_NO_BLT    (VCT_NO_BLT << 8)
+
+
 #endif
