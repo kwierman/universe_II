@@ -28,7 +28,7 @@ else
 USE_KBUILD := TRUE
 endif
 
-TARGET := universeII
+TARGET := universeIIdrv
 
 ifeq ($(USE_KBUILD),FALSE)
 OBJS := $(TARGET).o
@@ -68,7 +68,7 @@ clean:
 	rm -f $(KERNEL)/*.o
 else
 
-VME_GLUE_OBJS := universeII_drv.o
+VME_GLUE_OBJS := universeII.o
 
 ifneq ($(KERNELRELEASE),)
 obj-m	:= $(TARGET).o
