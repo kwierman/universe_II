@@ -1,12 +1,4 @@
-/******************************************************************************
-*
-* Filename: 	example_drv.c
-* 
-* Description:	Example driver demonstrating the usage of VME kernel APIs
-*
-* Copyright 2000-2009 Concurrent Technologies.
-*
-******************************************************************************/
+
 #ifndef __KERNEL__
 #define __KERNEL__
 #endif
@@ -51,7 +43,7 @@
 MODULE_LICENSE("Proprietary");
 #endif
 
-#include "example_drv.h" 
+#include "universeII.h"
 #include "vme_api_en.h"
 
 static int vmeMajor = 0; /* VME_DRIVER_MAJOR; 0 = use dynamic allocation */
@@ -73,8 +65,8 @@ int *tstPtr1, b = 20;
 static int intCount[26] = {0};
 
 /* device methods declared using tagged format */
-/* note: GNU compiler specific */ 
-static struct file_operations vme_fops = 
+/* note: GNU compiler specific */
+static struct file_operations vme_fops =
 {
 #if ((HAVE_UNLOCKED_IOCTL) && (LINUX_VERSION_CODE > KERNEL_VERSION(2,6,18)))
 	.unlocked_ioctl =		vmeexdrv_unlockedioctl,
@@ -96,7 +88,7 @@ static struct file_operations vme_fops =
 * vmeexdrv_lsi
 *
 * The following routine shows how to enable a PCI image and access the same
-* 
+*
 *
 *
 *
@@ -174,7 +166,7 @@ static int vmeexdrv_lsi( void )
 
                 vmekrn_releaseDevice( VME_LSI0 );
         }
- 
+
 	return result;
 }
 
@@ -204,13 +196,13 @@ static int vmeexdrv_vsi( void )
 
 
     	if ( result < 0 )
-    	{   
-        	printk("Error - failed to acquire VME Image 0\n");    
+    	{
+        	printk("Error - failed to acquire VME Image 0\n");
     	}
     	else
     	{
         	idata.vmeAddress = 0x2000000;
-		idata.vmeAddressUpper =0;       
+		idata.vmeAddressUpper =0;
         	idata.size = 0x10000;
 		idata.sizeUpper =0;
 		idata.threshold = 1;
@@ -316,7 +308,7 @@ static int vmeexdrv_dmaDirect( void )
 	    		tdata.txfer.vmeBlkSize = 0;
 	   	 	tdata.txfer.vmeBackOffTimer = 0;
 	    		tdata.txfer.pciBlkSize = 0;
-	    		tdata.txfer.pciBackOffTimer = 0;		
+	    		tdata.txfer.pciBackOffTimer = 0;
 
 	    		tdata.access.sstMode = 0;
 	    		tdata.access.vmeCycle = 0;
@@ -358,7 +350,7 @@ static int vmeexdrv_dmaDirect( void )
                 		printk("Error - failed to free DMA buffer \n");
 			}
 		}
-	
+
 		vmekrn_releaseDevice( VME_DMA0 );
     	}
 
@@ -465,7 +457,7 @@ static int vmeexdrv_dmaList( void )
                             				{
                                 				printk("0x%02X\n", buffer[i] );
                             				}
-                        			}		
+                        			}
                     			}
                 		}
 			}
@@ -980,7 +972,7 @@ static int vmeexdrv_interrupt( void )
 
             		/* wait for mailbox interrupt to occur
                		  note: vmekrn_waitInterrupt makes sure the interrupt is enabled
-               		 so there no need to call vmekrn_enableInterrupt first 
+               		 so there no need to call vmekrn_enableInterrupt first
            		*/
             		selectedInts = 1L <<EN_MBOX0;
             		intNum = 0;
@@ -1050,7 +1042,7 @@ static int vmeexdrv_generate_interrupt(int arg)
 {
 	int result;
 	UINT8 itNum = (UINT8)arg;
-	
+
 	result = vmekrn_acquireDevice(VME_CONTROL);
 
 	if ( result < 0 )
@@ -1068,10 +1060,10 @@ static int vmeexdrv_generate_interrupt(int arg)
 		{
 			printk("interrupt %d error\n",itNum);
 		}
-	
+
 		vmekrn_releaseDevice( VME_CONTROL );
 	}
-	
+
 	return result;
 }
 /******************************************************************************
@@ -1081,7 +1073,7 @@ static int vmeexdrv_generate_interrupt(int arg)
 * Demo driver ioctl routine
 *
 *
-*  
+*
 *
 * RETURNS: VME_SUCCESS if successful else an error code.
 *
@@ -1270,7 +1262,7 @@ static int vmeexdrv_ioctl( struct inode *inode, struct file *file,
 			printk( KERN_ERR "Unsupported ioctl\n");
 			result = -EINVAL;
 			break;
-	}	
+	}
 
 	return result;
 }
@@ -1316,7 +1308,7 @@ static long vmeexdrv_unlockedioctl( struct file *file,
 * Demo driver open function
 *
 *
-*  
+*
 *
 * RETURNS: VME_SUCCESS if successful else an error code.
 *
@@ -1324,7 +1316,7 @@ static long vmeexdrv_unlockedioctl( struct file *file,
 static int vmeexdrv_open( struct inode *inode, struct file *file )
 {
 	int result=0;
-  
+
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(2,6,0))
 	printk(KERN_DEBUG "device open successful");
 	MOD_INC_USE_COUNT;
@@ -1350,7 +1342,7 @@ static int vmeexdrv_open( struct inode *inode, struct file *file )
 * Demo driver close routine
 *
 *
-*  
+*
 *
 * RETURNS: VME_SUCCESS if successful else an error code.
 *
@@ -1375,7 +1367,7 @@ static int vmeexdrv_close( struct inode *inode, struct file *file )
 * Called when module is loaded.
 *
 *
-*  
+*
 *
 * RETURNS: V0 if successful else an error code.
 *
@@ -1387,8 +1379,8 @@ INIT_FUNC( void )
 	printk(KERN_DEBUG "\nVME Kernel API Demo Driver\n");
 
 	/* register device with kernel */
-	result = register_chrdev( vmeMajor, "example_drv", &vme_fops );
-	if ( result >= 0 ) 
+	result = register_chrdev( vmeMajor, "universeII", &vme_fops );
+	if ( result >= 0 )
 	{
 		/* if major number allocated dynamically */
 		if ( vmeMajor == 0 )
@@ -1411,7 +1403,7 @@ INIT_FUNC( void )
 * Called when module is unloaded.
 *
 *
-*  
+*
 *
 * RETURNS: None.
 *
@@ -1419,7 +1411,7 @@ INIT_FUNC( void )
 CLEANUP_FUNC( void )
 {
 	/* unregister device */
-	unregister_chrdev( vmeMajor, "example_drv" );
+	unregister_chrdev( vmeMajor, "universeII" );
 }
 
 #ifndef MODULE

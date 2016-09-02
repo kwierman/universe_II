@@ -1,14 +1,4 @@
-/******************************************************************************
-*
-* Filename:     example_drv.h
-*
-* Demo driver header file
-*
-* Copyright 2000-2009 Concurrent Technologies.
-*
-******************************************************************************/
-
-enum example_ioctl
+enum universeII_ioctl
 {
 	IOCTL_EX_LSI_IMAGE=0,
 	IOCTL_EX_VSI_IMAGE,
@@ -39,4 +29,3 @@ enum example_ioctl
 #define	VME_ENODEV		19	/* No such device */
 #define	VME_EINVAL		22	/* Invalid argument */
 #define	VME_ETIME		62	/* Timer expired */
-
