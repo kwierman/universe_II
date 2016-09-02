@@ -1,0 +1,29 @@
+#include <iostream>
+
+#include "TUVMEControlDevice.hh"
+
+
+int main(){
+    std::cout<<"Starting unit tests"<<std::endl;
+    std::cout<<"Testing TUVMEControlDevice"<<std::endl;
+
+    TUVMEControlDevice mydevice();
+    mydevice.Open();
+    std::cout<<"\tDevice Number: "<<mydevice.GetDevNumber()<<std::endl;
+    std::cout<<"\tVMEAddress: "<<mydevice.GetVMEAddress()<<std::endl;
+    std::cout<<"\tSizeOfImage: "<<mydevice.GetSizeOfImage()<<std::endl;
+    std::cout<<"\t Bus Error: "<<mydevice.CheckBusError()<<std::endl;
+    std::cout<<"\t WriteControlRegister: "<<mydevice.WriteControlRegister()<<std::endl;
+    std::cout<<"\t Enable: "<<mydevice.Enable()<<std::endl;
+
+    std::cout<<"\t SetHWByteSwap: "<<mydevice.SetHWByteSwap()<<std::endl;
+    std::cout<<"\t SetDSNegationSpeed: "<<mydevice.SetDSNegationSpeed()<<std::endl;
+    std::cout<<"\t SetDSHighTimeBLTs: "<<mydevice.SetDSHighTimeBLTs()<<std::endl;
+    std::cout<<"\t SetDSHighTimeBLTs: "<<mydevice.SetDSHighTimeBLTs()<<std::endl;
+    std::cout<<"\t GetPCIMemorySize: "<<mydevice.GetPCIMemorySize()<<std::endl;
+    std::cout<<"\t GetBoardType: "<<mydevice.GetBoardType()<<std::endl;
+
+    std::cout<<std::endl;
+
+    std::cout<<"Successfully Completed"<<std::endl;
+}
