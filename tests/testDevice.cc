@@ -5,7 +5,7 @@
 
 int main(){
     std::cout<<"Starting unit tests"<<std::endl;
-    std:cout<<"Testing TUVMEDevice"<<std::endl;
+    std::cout<<"Testing TUVMEDevice"<<std::endl;
 
     TUVMEDevice mydevice(uint32_t(0));
     mydevice.Open();
