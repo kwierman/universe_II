@@ -1,3 +1,6 @@
+#ifndef universeII_H_
+#define universeII_h_ 1
+
 enum universeII_ioctl
 {
 	IOCTL_EX_LSI_IMAGE=0,
@@ -29,3 +32,6 @@ enum universeII_ioctl
 #define	VME_ENODEV		19	/* No such device */
 #define	VME_EINVAL		22	/* Invalid argument */
 #define	VME_ETIME		62	/* Timer expired */
+
+
+#endif
