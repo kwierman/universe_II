@@ -6,6 +6,7 @@
 #include <string>
 #include "universeII.h"
 #include "vme_api_en.h"
+#include "ConcurrentVX40x.h"
 
 class TUVMEControlDevice: public TUVMEDevice {
 
