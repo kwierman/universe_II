@@ -13,7 +13,7 @@ class TUVMEDMADevice: public TUVMEDevice {
     TUVMEDMADevice();
     virtual ~TUVMEDMADevice();
 
-    virtual std::string GetDeviceStringName() {return "vme_dma";}
+    virtual std::string GetDeviceStringName() {return "vme/dma";}
     virtual int Enable();
 
     void SetNoIncrement(bool noInc = true) {fUseNoIncrement = noInc;}
