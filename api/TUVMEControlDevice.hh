@@ -22,7 +22,7 @@ class TUVMEControlDevice: public TUVMEDevice {
 	              kCCT     = UNIVERSE_BOARD_TYPE_CCT,
                       kVMIC    = UNIVERSE_BOARD_TYPE_VMIC };
 
-    virtual std::string GetDeviceStringName() {return "vme_ctl";}
+    virtual std::string GetDeviceStringName() {return "vmeex/ctl";}
     virtual int Enable() {return 0;}
     virtual int Open();
 
