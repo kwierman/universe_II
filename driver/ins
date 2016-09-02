@@ -13,6 +13,7 @@ case $version in
     2.2.* | 2.4.*) /sbin/insmod $kernel/$module.o || exit 1;;
     2.6.*) /sbin/insmod $kernel/$module.ko || exit 1;;
     3.*.*) /sbin/insmod $kernel/$module.ko || exit 1;;
+    4.*.*) /sbin/insmod $kernel/$module.ko || exit 1;;
 esac
 
 if [ -d /dev/$device ]
