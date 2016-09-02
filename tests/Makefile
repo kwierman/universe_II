@@ -45,9 +45,11 @@ all: testDevice
 testDevice: testDevice.cc
 	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
 
+testControlDevice: testControlDevice.cc
+	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
 
 # example10: example10.c
 #	$(CC) $(CFLAGS) $^ -o $@ -L $(LIBPATH) $(LIBEN)
 
 clean:
-	rm -f testDevice
+	rm -f testDevice testControlDevice
