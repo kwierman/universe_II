@@ -22,7 +22,7 @@ COMPATLIB = FALSE
 # set OS64BIT to FALSE and COMPATLIB to TRUE
 # For 64 bit native application OS64BIT to TRUE and COMPATLIB to FALSE
 
-CC 	= gcc
+CC 	= g++
 LIBPATHSHARED = ../api/
 LIBPATH = ../api/
 ifeq ($(COMPATLIB),FALSE)
@@ -42,8 +42,7 @@ endif
 
 all: testDevice
 
-#example1 shows the use of shared, dynamic API library
-example1: testDevice.cc
+testDevice: testDevice.cc
 	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
 
 
