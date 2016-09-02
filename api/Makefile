@@ -33,6 +33,7 @@ install: $(LIB)
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 $(LIB) $(INSTALLDIR)/lib || exit $$?
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 universe_api.h $(INSTALLDIR)/include || exit $$?
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 ../driver/universeII.h $(INSTALLDIR)/include || exit $$?
+	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 ../driver/vme_api_en.h $(INSTALLDIR)/include || exit $$?
 	$(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 ConcurrentVX40x.h $(INSTALLDIR)/include || exit $$?
 	@for i in $(HEADERS); do ($(INSTALL) -o $(INSTALLUSR) -g $(INSTALLGRP) -m 644 $$i $(INSTALLDIR)/include) || exit $$?; done
 	@echo "Installation complete."
