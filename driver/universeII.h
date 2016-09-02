@@ -1,6 +1,11 @@
 #ifndef universeII_H_
 #define universeII_H_ 1
 
+struct universe_ioport_ioctl {
+	char value;
+	uint16_t address;
+};
+
 enum universeII_ioctl
 {
 	IOCTL_EX_LSI_IMAGE=0,
