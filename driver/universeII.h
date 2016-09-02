@@ -104,4 +104,25 @@ enum universe_motherboard_type {
 #define DMA_VCT_USE_BLT   (VCT_USE_BLT << 8)
 #define DMA_VCT_NO_BLT    (VCT_NO_BLT << 8)
 
+#define VDW_8BIT    0x0
+#define VDW_16BIT   0x1
+#define VDW_32BIT   0x2
+#define VDW_64BIT   0x3
+
+#define VAS_A16     0x0
+#define VAS_A24     0x1
+#define VAS_A32     0x2
+#define VAS_CRCSR   0x5
+#define VAS_USER1   0x6
+#define VAS_USER2   0x7
+
+#define PGM_DATA    0x0
+#define PGM_PROG    0x1
+
+#define SUPER_NONP  0x0
+#define SUPER_SUP   0x1
+
+#define VCT_USE_BLT 0x1
+#define VCT_NO_BLT  0x0
+
 #endif
