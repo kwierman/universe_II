@@ -9,7 +9,7 @@ int main(){
     TUVMEDeviceManager* man = TUVMEDeviceManager::GetDeviceManager();
     std::cout<<"Getting Control Device"<<std::endl;
 
-    TUVMEControlDevice* con = man->GetControlDevice();
+    TUVMEControlDevice* con = (TUVMEControlDevice*)man->GetControlDevice();
     std::cout<<"\t Control Device"<<con<<std::endl;
 
 
