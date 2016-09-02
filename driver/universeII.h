@@ -70,6 +70,7 @@ enum universe_motherboard_type {
 #define UNIVERSE_VMIC_ENABLE_SLAVE_BIG_ENDIAN	0x2
 #define UNIVERSE_VMIC_ENABLE_ENDIAN_CONV_BYPASS	0x400
 
+#define U2SPEC                 0x04FC
 
 
 #endif
