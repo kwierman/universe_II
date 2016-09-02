@@ -43,7 +43,7 @@ endif
 all: testDevice
 
 #example1 shows the use of shared, dynamic API library
-example1: testDevice.c
+example1: testDevice.cc
 	$(CC) -Wl,-rpath=$(RPATH) $(CFLAGS) $^ -o $@ -L $(RPATH) $(LIBEN)
 
 
