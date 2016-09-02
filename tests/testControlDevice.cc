@@ -7,7 +7,7 @@ int main(){
     std::cout<<"Starting unit tests"<<std::endl;
     std::cout<<"Testing TUVMEControlDevice"<<std::endl;
 
-    TUVMEControlDevice mydevice();
+    TUVMEControlDevice mydevice;
     mydevice.Open();
     std::cout<<"\tDevice Number: "<<mydevice.GetDevNumber()<<std::endl;
     std::cout<<"\tVMEAddress: "<<mydevice.GetVMEAddress()<<std::endl;
