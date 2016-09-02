@@ -26,9 +26,9 @@ CC 	= g++
 LIBPATHSHARED = ../api/
 LIBPATH = ../api/
 ifeq ($(COMPATLIB),FALSE)
-LIBEN	= -luniverse
+LIBEN	= -luniverse_api
 else
-LIBEN	= -luniverse
+LIBEN	= -luniverse_api
 endif
 
 INCLUDE = ../api/ -I../driver/
